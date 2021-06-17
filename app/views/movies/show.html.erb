@@ -10,5 +10,13 @@
   <%= @movie.description %>
 </p>
 
+<p>
+  <strong>Genres:</strong>
+  <% @movie.category.each do |c| %>
+    <%= c.title %>
+  <% end %>
+</p>
+
+
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>
