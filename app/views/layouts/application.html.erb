@@ -39,12 +39,33 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> %>
             </ul>
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to current_user, :edit_user_registration, class: "nav-link" %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "Войти", :new_user_session, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Регистрация", :new_user_registration, class: "nav-link" %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </nav>
 
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice %>
+        <div class="alert alert-success my-3" role="alert">
+          <%= notice %>
+        </div>
+      <% elsif alert %>
+        <div class="alert alert-danger my-3" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
 
       <%= yield %>
 
