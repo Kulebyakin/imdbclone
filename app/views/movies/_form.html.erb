@@ -21,6 +21,11 @@
     <%= form.text_area :description %>
   </div>
 
+  <div class="field">
+    <%= form.label :Genres %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
