@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :require_admin, only: %i[ new edit update destroy ]
   before_action :set_movie, only: %i[ show edit update destroy ]
 
   # GET /movies or /movies.json
@@ -70,6 +71,13 @@ class MoviesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
+    end
+
+    def require_admin
+      unless current_user && current_user.admin?
+        flash[:alert] = "You are not an admin"
+        redirect_to root_path
+      end        
     end
 
     # Only allow a list of trusted parameters through.
