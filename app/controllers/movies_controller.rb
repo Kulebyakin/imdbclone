@@ -3,7 +3,17 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
+    @category = Category.joins(:movies).uniq
     @movies = Movie.all
+  end
+
+  def category
+    @category = Category.joins(:movies).uniq
+
+    cat = params[:category].capitalize
+    @movies = Movie.joins(:category).where("categories.title = ?", cat)
+    
+    render "index"
   end
 
   # GET /movies/1 or /movies/1.json

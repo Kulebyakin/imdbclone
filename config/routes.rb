@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'category/:category', to: 'movies#category'
   root to: "movies#index"
 
   devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', registration: 'register' }

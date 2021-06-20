@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% @category.each do |cat| %>
+  <%= link_to cat.title, "/category/#{cat.title.downcase}" %>
+<% end %>
+
 <h1>Movies</h1>
 
 <table class="table table-striped">
@@ -19,7 +23,7 @@
         <td><%= movie.description %></td>
         <td>
           <% movie.category.each do |c| %>
-            <%= c.title %>
+            <%= link_to c.title, "/category/#{c.title.downcase}" %>
           <% end %>
         </td>
         <td><%= link_to 'Show', movie %></td>
