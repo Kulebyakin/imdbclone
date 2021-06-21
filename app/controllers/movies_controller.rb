@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @category = Category.joins(:movies).uniq
-    @movies = Movie.all
+    @movies = Movie.order(title: :asc)
   end
 
   def category
