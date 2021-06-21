@@ -6,5 +6,7 @@ class CreateCategorisations < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :categorisations, [:category_id, :movie_id], unique: true
   end
 end

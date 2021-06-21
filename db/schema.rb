@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_20_075219) do
+ActiveRecord::Schema.define(version: 2021_06_20_091027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_06_20_075219) do
     t.bigint "movie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id", "movie_id"], name: "index_categorisations_on_category_id_and_movie_id", unique: true
     t.index ["category_id"], name: "index_categorisations_on_category_id"
     t.index ["movie_id"], name: "index_categorisations_on_movie_id"
   end
@@ -35,6 +36,17 @@ ActiveRecord::Schema.define(version: 2021_06_20_075219) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.integer "rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_ratings_on_movie_id"
+    t.index ["user_id", "movie_id"], name: "index_ratings_on_user_id_and_movie_id", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,4 +66,6 @@ ActiveRecord::Schema.define(version: 2021_06_20_075219) do
 
   add_foreign_key "categorisations", "categories"
   add_foreign_key "categorisations", "movies"
+  add_foreign_key "ratings", "movies"
+  add_foreign_key "ratings", "users"
 end
