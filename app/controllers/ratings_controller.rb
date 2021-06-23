@@ -5,11 +5,15 @@ class RatingsController < ApplicationController
     movie_id = params[:movie_id]
     rating = params[:rating]
 
-    ratings = Movie.find(movie_id).ratings.build(:user => current_user, :rating => rating)
-    if ratings.save
-      redirect_to "/movies/#{movie_id}", notice: "Movie was successfully rated."
+    if Movie.find(movie_id).ratings.where(:user => current_user).present?
+      redirect_to "/movies/#{movie_id}", notice: "Your rate is already taken into account."
     else
-      redirect_to "/movies/#{movie_id}", status: :unprocessable_entity
+      ratings = Movie.find(movie_id).ratings.build(:user => current_user, :rating => rating)
+      if ratings.save
+        redirect_to "/movies/#{movie_id}", notice: "Movie was successfully rated."
+      else
+        redirect_to "/movies/#{movie_id}", status: :unprocessable_entity
+      end
     end
 
   end
