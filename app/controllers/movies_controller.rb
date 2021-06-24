@@ -2,19 +2,30 @@ class MoviesController < ApplicationController
   before_action :require_admin, only: %i[ new edit update destroy ]
   before_action :set_movie, only: %i[ show edit update destroy ]
 
+  MOVIES_PER_PAGE = 2
+
   # GET /movies or /movies.json
   def index
     @category = Category.joins(:movies).uniq
-    @movies = Movie.order(title: :asc)
+    @page = params[:page].to_i
+    @number_of_pages = (Movie.count / MOVIES_PER_PAGE) - 1
+    
+    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
+    @movies = Movie.order(title: :asc).offset(@page * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
   end
 
   def category
     @category = Category.joins(:movies).uniq
+    @page = params[:page].to_i
+    @cat = params[:category].capitalize
+    @number_of_pages = Movie.joins(:category).where("categories.title = ?", @cat).count / MOVIES_PER_PAGE
 
-    cat = params[:category].capitalize
-    @movies = Movie.joins(:category).where("categories.title = ?", cat)
-    
-    render "index"
+    if @page > @number_of_pages || @page < 0
+      redirect_to movies_path, alert: "Wrong page number!"
+    else
+      @movies = Movie.joins(:category).where("categories.title = ?", @cat).offset(@page * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
+      render "index"
+    end
   end
 
   # GET /movies/1 or /movies/1.json

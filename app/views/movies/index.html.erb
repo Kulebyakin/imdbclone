@@ -1,6 +1,6 @@
 <div class="my-3">Genres: 
   <% @category.each do |cat| %>
-    <%= link_to cat.title, "/category/#{cat.title.downcase}" %>
+    <%= link_to cat.title, category_path(category: cat.title.downcase) %>
   <% end %>
 </div>
 
@@ -41,3 +41,18 @@
 <% if user_signed_in? && current_user.admin? %>
   <%= link_to 'New Movie', new_movie_path %>
 <% end %>
+
+<div>
+  <% if @cat.present? %>
+    <%= link_to "First page", category_path if @page != 0 %>
+    <%= link_to "Previous page", category_path(page: @page - 1) if @page > 0 %>
+    <%= link_to "Next page", category_path(page: @page + 1) if @page < @number_of_pages %>
+    <%= link_to "Last page", category_path(page: @number_of_pages) if @page != @number_of_pages %>
+
+  <% else %>
+    <%= link_to "First page", movies_path if @page != 0 %>
+    <%= link_to "Previous page", movies_path(page: @page - 1) if @page > 0 %>
+    <%= link_to "Next page", movies_path(page: @page + 1) if @page < @number_of_pages %>
+    <%= link_to "Last page", movies_path(page: @number_of_pages) if @page != @number_of_pages %>
+  <% end %>
+</div>

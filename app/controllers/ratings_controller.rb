@@ -17,7 +17,7 @@ class RatingsController < ApplicationController
         end
       end
     else
-      redirect_to "/movies/#{movie_id}", alert: "Your rate should be from 1 to 10!"
+      redirect_to "/movies/#{movie_id}", alert: "Wrong rate number!"
     end
   end
 
