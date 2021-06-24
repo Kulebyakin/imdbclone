@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'movie/:movie_id/rate/:rating', to: 'ratings#index'
+  get 'movies/:movie_id/rate/:rating', to: 'ratings#index'
   get 'category/:category', to: 'movies#category'
   root to: "movies#index"
 
