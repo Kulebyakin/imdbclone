@@ -7,23 +7,23 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @category = Category.joins(:movies).uniq
-    @page = params[:page].to_i
-    @number_of_pages = (Movie.count / MOVIES_PER_PAGE) - 1
+    @page = (params[:page] || 1).to_i
+    @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
     
     redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
-    @movies = Movie.order(title: :asc).offset(@page * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
+    @movies = Movie.order(title: :asc).offset((@page - 1) * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
   end
 
   def category
     @category = Category.joins(:movies).uniq
-    @page = params[:page].to_i
+    @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize
-    @number_of_pages = Movie.joins(:category).where("categories.title = ?", @cat).count / MOVIES_PER_PAGE
+    @number_of_pages = (Movie.joins(:category).where("categories.title = ?", @cat).count / MOVIES_PER_PAGE.to_f).ceil
 
-    if @page > @number_of_pages || @page < 0
+    if @page >= @number_of_pages && @page < 0
       redirect_to movies_path, alert: "Wrong page number!"
     else
-      @movies = Movie.joins(:category).where("categories.title = ?", @cat).offset(@page * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
+      @movies = Movie.joins(:category).where("categories.title = ?", @cat).offset((@page - 1) * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
       render "index"
     end
   end

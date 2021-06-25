@@ -44,15 +44,17 @@
 
 <div>
   <% if @cat.present? %>
-    <%= link_to "First page", category_path if @page != 0 %>
-    <%= link_to "Previous page", category_path(page: @page - 1) if @page > 0 %>
-    <%= link_to "Next page", category_path(page: @page + 1) if @page < @number_of_pages %>
-    <%= link_to "Last page", category_path(page: @number_of_pages) if @page != @number_of_pages %>
+    <% if @page != 1 %><%= link_to "First page", category_path %><% else %> First page <% end %>
+    <% if @page > 1 %><%= link_to "Previous page", category_path(page: @page - 1) %><% else %> Previous page <% end %>
+    <%= @page %>
+    <% if @page < @number_of_pages %><%= link_to "Next page", category_path(page: @page + 1) %><% else %> Next page <% end %>
+    <% if @page != @number_of_pages %><%= link_to "Last page", category_path(page: @number_of_pages) %><% else %> Last page <% end %>
 
   <% else %>
-    <%= link_to "First page", movies_path if @page != 0 %>
-    <%= link_to "Previous page", movies_path(page: @page - 1) if @page > 0 %>
-    <%= link_to "Next page", movies_path(page: @page + 1) if @page < @number_of_pages %>
-    <%= link_to "Last page", movies_path(page: @number_of_pages) if @page != @number_of_pages %>
+    <% if @page != 1 %><%= link_to "First page", movies_path %><% else %> First page <% end %>
+    <% if @page > 1 %><%= link_to "Previous page", movies_path(page: @page - 1) %><% else %> Previous page <% end %>
+    <%= @page %>
+    <% if @page < @number_of_pages %><%= link_to "Next page", movies_path(page: @page + 1) %><% else %> Next page <% end %>
+    <% if @page != @number_of_pages %><%= link_to "Last page", movies_path(page: @number_of_pages) %><% else %> Last page <% end %>
   <% end %>
 </div>
