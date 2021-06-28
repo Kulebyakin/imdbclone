@@ -3,4 +3,10 @@ class Movie < ApplicationRecord
   has_many :category, -> { distinct }, through: :categorisation
   has_many :ratings, dependent: :destroy
   has_many :users, -> { distinct }, through: :rating
+
+  scope :paginate, -> (page:, per_page:) {
+    page = (page || 1).to_i
+
+    limit(per_page).offset((page - 1) * per_page)
+  }
 end
