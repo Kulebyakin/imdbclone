@@ -1,8 +1,9 @@
 class MoviesController < ApplicationController
   before_action :require_admin, only: %i[ new edit update destroy ]
   before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[ expressrate ]
 
-  MOVIES_PER_PAGE = 2
+  MOVIES_PER_PAGE = 10
 
   # GET /movies or /movies.json
   def index
@@ -11,7 +12,7 @@ class MoviesController < ApplicationController
     @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
     
     redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
-    @movies = Movie.order(title: :asc).offset((@page - 1) * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
+    @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
   end
 
   def category
@@ -23,8 +24,36 @@ class MoviesController < ApplicationController
     if @page >= @number_of_pages && @page < 0
       redirect_to movies_path, alert: "Wrong page number!"
     else
-      @movies = Movie.joins(:category).where("categories.title = ?", @cat).offset((@page - 1) * MOVIES_PER_PAGE).limit(MOVIES_PER_PAGE)
+      @movies = Movie.joins(:category).where("categories.title = ?", @cat).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
       render "index"
+    end
+  end
+
+  def expressrate
+    rating = params[:rating].to_i
+    @page = (params[:page] || 1).to_i
+
+    @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
+
+    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
+    @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
+
+    if rating >= 1 && rating <= 10
+      if Movie.find(params[:id]).ratings.where(:user => current_user).present?
+        redirect_to movies_path, notice: "Your rate is already taken into account."
+      else
+        ratings = Movie.find(params[:id]).ratings.build(:user => current_user, :rating => rating)
+        respond_to do |format|
+          if ratings.save
+            format.js
+            format.html { redirect_to movie_path, notice: "Movie was successfully rated." }
+          else
+            redirect_to movies_path, status: :unprocessable_entity
+          end
+        end
+      end
+    else
+      redirect_to movies_path, alert: "Wrong rate number!"
     end
   end
 
@@ -93,6 +122,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :description, category_ids:[])
+      params.require(:movie).permit(:title, :description, :rating, category_ids:[])
     end
 end

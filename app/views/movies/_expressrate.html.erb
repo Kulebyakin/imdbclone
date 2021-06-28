@@ -1,0 +1,33 @@
+<% @movies.each do |movie| %>
+  <tr>
+    <td><%= link_to movie.title, movie %></td>
+    
+    <% if current_user %>
+      <td>
+        <% if current_user.ratings.where(movie: movie).present? %>
+          <p>
+            Your rate:
+            <strong>
+              <%= movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+            </strong>
+          </p>
+        <% else %>
+          <% (1..10).each do |n| %>
+            <%= link_to n, "/movies/#{movie.id}/rate/#{n}", remote: true %>
+          <% end %>
+        <% end %>
+      </td>
+    <% end %>
+    
+    <td><%= movie.description %></td>
+    <td>
+      <% movie.category.each do |c| %>
+        <%= link_to c.title, "/category/#{c.title.downcase}" %>
+      <% end %>
+    </td>
+    <% if user_signed_in? && current_user.admin? %>
+      <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+      <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>

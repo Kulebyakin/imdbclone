@@ -22,17 +22,19 @@
   </p>
 <% end %>
 
-<% if current_user && current_user.ratings.where(movie: @movie).present? %>
-  <p>
-    <strong>Your rating:</strong>
-    <%= @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
-  </p>
+<% if current_user %>
+  <% if current_user.ratings.where(movie: @movie).present? %>
+    <p>
+      <strong>Your rating:</strong>
+      <%= @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+    </p>
+  <% else %>
+    <% (1..10).each do |n| %>
+      <%= link_to n, "/movies/#{@movie.id}/rate/#{n}"%>
+    <% end %>
+  <% end %>
 <% end %>
 
-
-<% (1..10).each do |n| %>
-  <%= link_to n, "/movies/#{@movie.id}/rate/#{n}" %>
-<% end %>
 
 <br><br>
 
