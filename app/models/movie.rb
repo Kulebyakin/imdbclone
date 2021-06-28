@@ -4,6 +4,9 @@ class Movie < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :users, -> { distinct }, through: :rating
 
+  validates :title, presence: true
+  validates :category, presence: true
+
   scope :paginate, -> (page:, per_page:) {
     page = (page || 1).to_i
 
