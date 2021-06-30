@@ -32,11 +32,12 @@ class MoviesController < ApplicationController
   def expressrate
     rating = params[:rating].to_i
     @page = (params[:page] || 1).to_i
-
+    @cat = params[:category].capitalize if params[:category].present?
     @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
 
-    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
-    @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
+    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 1
+    @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE) if @cat.nil?
+    @movies = Movie.joins(:category).where("categories.title = ?", @cat).paginate(page: params[:page], per_page: MOVIES_PER_PAGE) if !@cat.nil?
 
     if rating >= 1 && rating <= 10
       if Movie.find(params[:id]).ratings.where(:user => current_user).present?

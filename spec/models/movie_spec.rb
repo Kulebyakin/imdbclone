@@ -10,8 +10,8 @@ RSpec.describe Movie, type: :model do
       description: 'A description',
       category_ids: category.id
     )
-
     expect(movie).to_not be_valid
+
     movie.title = 'title'
     expect(movie).to be_valid
   end
