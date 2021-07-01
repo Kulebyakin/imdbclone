@@ -14,7 +14,7 @@
         <% else %>
           <% (1..10).each do |n| %>
             <%= 
-              link_to_if params[:category].nil? && params[:page].nil?, n, "/movies/#{movie.id}/rate/#{n}", remote: true do
+              link_to_if params[:page].nil? && params[:category].nil?, n, "/movies/#{movie.id}/rate/#{n}", remote: true do
                 link_to_if params[:page].nil? && !params[:category].nil?, n, "/movies/#{movie.id}/rate/#{n}/category/#{params[:category]}/", remote: true do
                   link_to_if !params[:page].nil? && params[:category].nil?, n, "/movies/#{movie.id}/rate/#{n}?page=#{params[:page]}", remote: true do
                     link_to n, "/movies/#{movie.id}/rate/#{n}/category/#{params[:category]}?page=#{params[:page]}", remote: true 

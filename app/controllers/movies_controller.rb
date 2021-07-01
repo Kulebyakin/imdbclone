@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ expressrate ]
 
-  MOVIES_PER_PAGE = 10
+  MOVIES_PER_PAGE = 3
 
   # GET /movies or /movies.json
   def index
