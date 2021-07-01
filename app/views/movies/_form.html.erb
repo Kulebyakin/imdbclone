@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description,rows: 10, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-check">
     <%= form.label :Genres %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class: "form-check-input" %>
   </div>
 
   <div class="actions">
