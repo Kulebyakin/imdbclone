@@ -1,6 +1,8 @@
 <div class="my-3">Genres: 
-  <% @category.each do |cat| %>
-    <%= link_to cat.title, category_path(category: cat.title.downcase) %>
+  <% if @category.present? %>
+    <% @category.each do |cat| %>
+      <%= link_to cat.title, category_path(category: cat.title.downcase) %>
+    <% end %>
   <% end %>
 </div>
 
