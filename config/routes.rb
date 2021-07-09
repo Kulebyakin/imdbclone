@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  get 'movies/:id/rate/:rating', to: 'movies#expressrate'
-  get 'movies/:id/rate/:rating?page=:page', to: 'movies#expressrate'
-  get 'movies/:id/rate/:rating/category/:category', to: 'movies#expressrate'
-  get 'movies/:id/rate/:rating/category/:category?page=:page', to: 'movies#expressrate'
+  match 'movies/:id/rate/:rating', to: 'movies#expressrate', via: [:get, :post], as: :rating
   get 'category/:category', to: 'movies#category', as: :category
   root to: "movies#index"
 
