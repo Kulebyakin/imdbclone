@@ -40,10 +40,18 @@ class MoviesController < ApplicationController
     @movies = Movie.joins(:category).where("categories.title = ?", @cat).paginate(page: params[:page], per_page: MOVIES_PER_PAGE) if !@cat.nil?
 
     if rating >= 1 && rating <= 10
-      if Movie.find(params[:id]).ratings.where(:user => current_user).present?
-        redirect_to movies_path, notice: "Your rate is already taken into account."
+      if Movie.find(params[:id]).ratings.where(user: current_user).present?
+        ratings = Movie.find(params[:id]).ratings.where(user: current_user).update(rating: rating)
+        respond_to do |format|
+          if ratings
+            format.js
+            format.html { redirect_to movie_path, notice: "Movie was successfully rated." }
+          else
+            redirect_to movies_path, status: :unprocessable_entity
+          end
+        end
       else
-        ratings = Movie.find(params[:id]).ratings.build(:user => current_user, :rating => rating)
+        ratings = Movie.find(params[:id]).ratings.where(user: current_user).build(rating: rating)
         respond_to do |format|
           if ratings.save
             format.js
