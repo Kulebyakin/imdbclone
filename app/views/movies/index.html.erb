@@ -13,7 +13,7 @@
     <tr>
       <th>Title</th>
       <% if current_user %>
-        <th>Express Rate</th>
+        <th>Rate</th>
       <% end %>
       <th>Description</th>
       <th>Genres</th>
@@ -23,8 +23,8 @@
     </tr>
   </thead>
 
-  <tbody id="expressrate">
-    <%= render partial: "expressrate" %>
+  <tbody id="rate">
+    <%= render partial: "rate" %>
     
   </tbody>
 </table>

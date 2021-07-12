@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   before_action :require_admin, only: %i[ new edit update destroy ]
   before_action :set_movie, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ expressrate ]
+  before_action :authenticate_user!, only: %i[ rate ]
 
   MOVIES_PER_PAGE = 3
 
@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  def expressrate
+  def rate
     rating = params[:rating].to_i
     @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize if params[:category].present?
