@@ -12,54 +12,7 @@
   </head>
 
   <body>
-    
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">IMDb clone</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/movies">Movies</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Genres
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <% if @category.present? %>
-                  <% @category.each do |cat| %>
-                    <%= link_to cat.title, category_path(category: cat.title.downcase), class: "dropdown-item" %>
-                  <% end %>
-                <% end %>
-              </ul>
-            </li>
-            <%# <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li> %>
-          </ul>
-          <ul class="navbar-nav ml-auto">
-            <% if user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to current_user.username, :edit_user_registration, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "logout", :destroy_user_session, class: "nav-link" %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to "Login", :new_user_session, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Register", :new_user_registration, class: "nav-link" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%= render partial: "layouts/navbar" %>
 
     <div class="container mb-5">
       <% if notice %>
