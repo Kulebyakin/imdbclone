@@ -1,7 +1,11 @@
 <% if params[:category] %>
-  <h1><%= params[:category].capitalize %></h1>
+  <div class="m-2">
+    <h3><%= params[:category].capitalize %></h3>
+  </div>
 <% else %>
-  <h1>Movies</h1>
+  <div class="m-2">
+    <h3>Movies</h3>
+  </div>
 <% end %>
 
 <table class="table table-striped">
