@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Imdbclone</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+  </head>
+
+  <body>
+    <%= render partial: "layouts/admin_navbar" %>
+
+    <div class="container mb-5">
+      <% if notice %>
+        <div class="alert alert-success my-3" role="alert">
+          <%= notice %>
+        </div>
+      <% elsif alert %>
+        <div class="alert alert-danger my-3" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
+  </body>
+</html>

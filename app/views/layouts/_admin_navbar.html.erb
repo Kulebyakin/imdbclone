@@ -1,36 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">IMDb clone</a>
+    <a class="navbar-brand" href="/">Admin panel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-        <%# <li class="nav-item">
-          <a class="nav-link" href="/movies">Movies</a>
+        <li class="nav-item">
+          <%= link_to "Movies", :admin_movies, class: "nav-link" %>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item">
+          <%= link_to 'New Movie', new_admin_movie_path, class: "nav-link" %>
+        </li>
+        <%# <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Genres
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          </a> %>
+          <%# <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> %>
 
-          </ul>
-        </li> %>
-        <% if @category.present? %>
-          <% @category.each do |cat| %>
-            <%= link_to cat.title, category_path(category: cat.title.downcase), class: "nav-link" %>
-          <% end %>
-        <% end %>
+          <%# </ul> %>
+        <%# </li> %>
         <%# <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> %>
       </ul>
       <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
-          <% if current_user.admin? %>
-            <%= link_to "Admin panel", :admin_root, class: "nav-link" %>
-          <% end %>
           <li class="nav-item">
             <%= link_to current_user.username, :edit_user_registration, class: "nav-link" %>
           </li>

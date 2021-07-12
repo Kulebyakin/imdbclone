@@ -31,7 +31,7 @@
   <% end %>
   
   <% (1..10).each do |n| %>
-    <%= link_to n, "/movies/#{@movie.id}/rate/#{n}"%>
+    <%= link_to n, rating_path(id: @movie, rating: n) %>
   <% end %>
   
 <% end %>
@@ -39,5 +39,4 @@
 
 <br><br>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

@@ -35,9 +35,5 @@
         <%= link_to c.title, category_path(category: c.title.downcase) %>
       <% end %>
     </td>
-    <% if user_signed_in? && current_user.admin? %>
-      <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-      <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
   </tr>
 <% end %>

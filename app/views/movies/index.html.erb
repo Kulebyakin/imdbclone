@@ -17,9 +17,6 @@
       <% end %>
       <th>Description</th>
       <th>Genres</th>
-      <% if user_signed_in? && current_user.admin? %>
-        <th colspan="2"></th>
-      <% end %>
     </tr>
   </thead>
 
@@ -30,9 +27,6 @@
 </table>
 
 <br>
-<% if user_signed_in? && current_user.admin? %>
-  <%= link_to 'New Movie', new_movie_path %>
-<% end %>
 
 <div>
   <% if @cat.present? %>
