@@ -12,18 +12,20 @@
             </strong>
           </p>
         <% end %>
-        
-        <% (1..10).each do |n| %>
-          <%= 
-            link_to_if params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n), method: :post, remote: true do
-              link_to_if params[:page].nil? && !params[:category].nil?, n, rating_path(id: movie, rating: n, category: params[:category]), method: :post, remote: true do
-                link_to_if !params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n, page: params[:page]), method: :post, remote: true do
-                  link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true 
+        <div class="d-inline-flex">
+          <% (1..10).each do |n| %>
+            <%= 
+              link_to_if params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n), method: :post, remote: true do
+                link_to_if params[:page].nil? && !params[:category].nil?, n, rating_path(id: movie, rating: n, category: params[:category]), method: :post, remote: true do
+                  link_to_if !params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n, page: params[:page]), method: :post, remote: true do
+                    link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true 
+                  end
                 end
               end
-            end
-          %>
-        <% end %>
+            %>
+          <% end %>
+        </div>
+        
       </td>
     <% end %>
     
