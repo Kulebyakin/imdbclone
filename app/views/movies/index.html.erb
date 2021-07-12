@@ -1,12 +1,8 @@
-<div class="my-3">Genres: 
-  <% if @category.present? %>
-    <% @category.each do |cat| %>
-      <%= link_to cat.title, category_path(category: cat.title.downcase) %>
-    <% end %>
-  <% end %>
-</div>
-
-<h1>Movies</h1>
+<% if params[:category] %>
+  <h1><%= params[:category].capitalize %></h1>
+<% else %>
+  <h1>Movies</h1>
+<% end %>
 
 <table class="table table-striped">
   <thead>
