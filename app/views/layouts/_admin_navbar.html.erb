@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Admin panel</a>
+    <%= link_to "Admin panel", :admin_root, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,6 +31,9 @@
         </li> %>
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to "IMDb clone", :root, class: "nav-link" %>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to current_user.username, :edit_user_registration, class: "nav-link" %>
