@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     root to: 'movies#index'
-    get 'main/index'
+    get 'main', to: 'main#index', as: :main
+    resources :categories, except: [:show]
     resources :movies
   end
 
