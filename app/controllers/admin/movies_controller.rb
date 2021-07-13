@@ -1,8 +1,12 @@
 class Admin::MoviesController < Admin::BaseController
-  before_action :set_movie, only: %i[ edit update destroy ]
+  before_action :set_movie, only: %i[ show edit update destroy ]
 
   def index
     @movies = Movie.order(title: :asc)
+  end
+
+  # GET /movies/1 or /movies/1.json
+  def show
   end
 
   # GET /movies/new
@@ -20,7 +24,7 @@ class Admin::MoviesController < Admin::BaseController
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to @movie, notice: "Movie was successfully created." }
+        format.html { redirect_to admin_movie_path(@movie), notice: "Movie was successfully created." }
         format.json { render :show, status: :created, location: @movie }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +37,7 @@ class Admin::MoviesController < Admin::BaseController
   def update
     respond_to do |format|
       if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: "Movie was successfully updated." }
+        format.html { redirect_to admin_movie_path(@movie), notice: "Movie was successfully updated." }
         format.json { render :show, status: :ok, location: @movie }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -46,7 +50,7 @@ class Admin::MoviesController < Admin::BaseController
   def destroy
     @movie.destroy
     respond_to do |format|
-      format.html { redirect_to movies_url, notice: "Movie was successfully destroyed." }
+      format.html { redirect_to admin_movies_url, notice: "Movie was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -59,6 +63,6 @@ class Admin::MoviesController < Admin::BaseController
 
   # Only allow a list of trusted parameters through.
   def movie_params
-    params.require(:movie).permit(:title, :description, :rating, category_ids:[])
+    params.require(:movie).permit(:title, :description, category_ids:[])
   end
 end

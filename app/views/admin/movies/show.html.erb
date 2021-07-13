@@ -1,0 +1,27 @@
+<p>
+  <strong>Title:</strong>
+  <%= @movie.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @movie.description %>
+</p>
+
+<p>
+  <strong>Genres:</strong>
+  <% @movie.category.each do |c| %>
+    <%= c.title %>
+  <% end %>
+</p>
+
+<% if @movie.ratings.any? %>
+  <p>
+    <strong>Average rating:</strong>
+    <%= @movie.ratings.average(:rating).round(2) %> (number of ratings: <%= @movie.ratings.count(:rating) %>)
+  </p>
+<% end %>
+
+<br><br>
+
+<%= link_to 'Back', admin_movies_path %>

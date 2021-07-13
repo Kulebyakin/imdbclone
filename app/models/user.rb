@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :ratings, dependent: :destroy
-  has_many :movies, -> { distinct }, through: :rating
+  has_many :movies, through: :rating
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true

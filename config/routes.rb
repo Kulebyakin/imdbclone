@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'movies#index'
     get 'main/index'
-    resources :movies, except: :show
+    resources :movies
   end
 
   match 'movies/:id/rate/:rating', to: 'movies#rate', via: [:get, :post], as: :rating

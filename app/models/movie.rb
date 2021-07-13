@@ -1,8 +1,8 @@
 class Movie < ApplicationRecord
   has_many :categorisation, dependent: :destroy
-  has_many :category, -> { distinct }, through: :categorisation
+  has_many :category, through: :categorisation
   has_many :ratings, dependent: :destroy
-  has_many :users, -> { distinct }, through: :rating
+  has_many :users, through: :rating
 
   validates :title, presence: true
   validates :category, presence: true

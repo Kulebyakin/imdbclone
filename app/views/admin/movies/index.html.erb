@@ -11,7 +11,7 @@
   <tbody>
     <% @movies.each do |movie| %>
       <tr>
-        <td><%= link_to movie.title, movie %></td>
+        <td><%= link_to movie.title, admin_movie_path(movie) %></td>
         <td><%= movie.description %></td>
         <td>
           <% movie.category.each do |c| %>
@@ -19,7 +19,7 @@
           <% end %>
         </td>
           <td><%= link_to 'Edit', edit_admin_movie_path(movie) %></td>
-          <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', admin_movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     
