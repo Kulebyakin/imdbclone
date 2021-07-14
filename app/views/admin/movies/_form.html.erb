@@ -26,7 +26,7 @@
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class: "form-check-input" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit class: "btn btn-success my-3" %>
   </div>
 <% end %>
