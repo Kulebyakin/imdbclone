@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'main', to: 'main#index', as: :main
     resources :categories, except: [:show]
     resources :movies
+    get 'users', to: 'users#index', as: :users
   end
 
   match 'movies/:id/rate/:rating', to: 'movies#rate', via: [:get, :post], as: :rating
