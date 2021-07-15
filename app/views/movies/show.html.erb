@@ -1,42 +1,42 @@
-<p>
-  <strong>Title:</strong>
-  <%= @movie.title %>
-</p>
+<div class="p-5 my-3 bg-light rounded-3 border">
+  <div class="container-fluid py-1">
 
-<p>
-  <strong>Description:</strong>
-  <%= @movie.description %>
-</p>
-
-<p>
-  <strong>Genres:</strong>
-  <% @movie.category.each do |c| %>
-    <%= c.title %>
-  <% end %>
-</p>
-
-<% if @movie.ratings.any? %>
-  <p>
-    <strong>Average rating:</strong>
-    <%= @movie.ratings.average(:rating).round(2) %> (number of ratings: <%= @movie.ratings.count(:rating) %>)
-  </p>
-<% end %>
-
-<% if current_user %>
-  <% if current_user.ratings.where(movie: @movie).present? %>
-    <p>
-      <strong>Your rating:</strong>
-      <%= @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+    <div class="d-flex">
+      <div class="me-auto">
+        <h3 class="display-7"><%= link_to @movie.title, @movie, style: "text-decoration: none; color: black" %></h3>
+      </div>
+      <div class="ml-auto">
+        
+        <% if current_user %>
+          <% (1..10).each do |n| %>
+            <%= link_to n, rating_path(id: @movie, rating: n) %>
+          <% end %>
+          <br>
+          <% if current_user.ratings.where(movie: @movie).present? %>
+            Your rate:
+            <strong>
+              <%= @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+            </strong>
+          <% end %>
+          
+          
+        <% end %>
+      </div>
+    </div>
+    
+    <p class="fs-5">
+      <%= @movie.description %>
     </p>
-  <% end %>
-  
-  <% (1..10).each do |n| %>
-    <%= link_to n, rating_path(id: @movie, rating: n) %>
-  <% end %>
-  
-<% end %>
+    <div class="my-3">
+      <strong>Average rating:</strong>
+      <%= @movie.ratings.average(:rating).round(2) %> (number of ratings: <%= @movie.ratings.count(:rating) %>)
+    </div>
+    
+    <% @movie.category.each do |c| %>
+      <%= link_to c.title, category_path(category: c.title.downcase) %>
+    <% end %>
+    
+  </div>
+</div>
 
-
-<br><br>
-
-<%= link_to 'Back', movies_path %>
+<%= link_to 'Back', movies_path, class: "btn btn-secondary" %>
