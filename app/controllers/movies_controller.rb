@@ -3,7 +3,6 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @category = Category.joins(:movies).uniq
     @page = (params[:page] || 1).to_i
     @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
     
@@ -12,7 +11,6 @@ class MoviesController < ApplicationController
   end
 
   def category
-    @category = Category.joins(:movies).uniq
     @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize
     @number_of_pages = (Movie.joins(:category).where("categories.title = ?", @cat).count / MOVIES_PER_PAGE.to_f).ceil
@@ -27,7 +25,6 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
-    @category = Category.joins(:movies).uniq
   end
 
   private
