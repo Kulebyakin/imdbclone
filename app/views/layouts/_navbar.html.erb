@@ -19,7 +19,11 @@
         </li> %>
         <% if @category.present? %>
           <% @category.each do |cat| %>
-            <%= link_to cat.title, category_path(category: cat.title.downcase), class: "nav-link" %>
+            <%= 
+              link_to_if @cat.present? && @cat == cat.title, cat.title, category_path(category: cat.title.downcase), class: "nav-link active" do
+                link_to cat.title, category_path(category: cat.title.downcase), class: "nav-link"
+              end
+            %>
           <% end %>
         <% end %>
         <%# <li class="nav-item">
