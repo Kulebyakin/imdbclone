@@ -61,4 +61,8 @@ class Admin::CategoriesController < Admin::BaseController
   def category_params
     params.require(:category).permit(:title)
   end
+
+  def set_active_main_menu_item
+    @main_menu[:categories][:active] = true
+  end
 end

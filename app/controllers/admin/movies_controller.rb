@@ -65,4 +65,8 @@ class Admin::MoviesController < Admin::BaseController
   def movie_params
     params.require(:movie).permit(:title, :description, category_ids:[])
   end
+
+  def set_active_main_menu_item
+    @main_menu[:movies][:active] = true
+  end
 end
