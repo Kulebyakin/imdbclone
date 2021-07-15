@@ -1,30 +1,16 @@
-<% if params[:category] %>
-  <div class="m-2">
-    <h3><%= params[:category].capitalize %></h3>
-  </div>
-<% else %>
-  <div class="m-2">
-    <h3>Movies</h3>
-  </div>
-<% end %>
+<div class="m-3 px-2">
+  <% if params[:category] %>
+    <h2><%= params[:category].capitalize %></h2>
+  <% else %>
+    <h2>Movies</h2>
+  <% end %>
+</div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <% if current_user %>
-        <th>Rate</th>
-      <% end %>
-      <th>Description</th>
-      <th>Genres</th>
-    </tr>
-  </thead>
 
-  <tbody id="rate">
-    <%= render partial: "rate" %>
-    
-  </tbody>
-</table>
+
+<div id="rate">
+  <%= render partial: "rate" %>
+</div>
 
 <br>
 

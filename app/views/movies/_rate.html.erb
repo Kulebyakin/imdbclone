@@ -1,39 +1,43 @@
 <% @movies.each do |movie| %>
-  <tr>
-    <td><%= link_to movie.title, movie %></td>
-    
-    <% if current_user %>
-      <td>
-        <% if current_user.ratings.where(movie: movie).present? %>
-          <p>
-            Your rate:
-            <strong>
-              <%= movie.ratings.where(user: current_user).pluck(:rating)[0] %>
-            </strong>
-          </p>
-        <% end %>
-        <div class="d-inline-flex">
-          <% (1..10).each do |n| %>
-            <%= 
-              link_to_if params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n), method: :post, remote: true do
-                link_to_if params[:page].nil? && !params[:category].nil?, n, rating_path(id: movie, rating: n, category: params[:category]), method: :post, remote: true do
-                  link_to_if !params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n, page: params[:page]), method: :post, remote: true do
-                    link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true 
+  <div class="p-5 mb-4 bg-light rounded-3 border">
+    <div class="container-fluid py-1">
+
+      <div class="d-flex">
+        <div class="me-auto">
+          <h3 class="display-7"><%= link_to movie.title, movie, style: "text-decoration: none; color: black" %></h3>
+        </div>
+        <div class="ml-auto">
+          <% if current_user %>
+            <% (1..10).each do |n| %>
+              <%= 
+                link_to_if params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n), method: :post, remote: true do
+                  link_to_if params[:page].nil? && !params[:category].nil?, n, rating_path(id: movie, rating: n, category: params[:category]), method: :post, remote: true do
+                    link_to_if !params[:page].nil? && params[:category].nil?, n, rating_path(id: movie, rating: n, page: params[:page]), method: :post, remote: true do
+                      link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true 
+                    end
                   end
                 end
-              end
-            %>
+              %>
+            <% end %>
+            <br>
+            <% if current_user.ratings.where(movie: movie).present? %>
+              Your rate:
+              <strong>
+                <%= movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+              </strong>
+            <% end %>
+            
+            
           <% end %>
         </div>
-        
-      </td>
-    <% end %>
-    
-    <td><%= movie.description %></td>
-    <td>
+      </div>
+      
+      <p class="fs-5"><%= movie.description %></p>
+
       <% movie.category.each do |c| %>
         <%= link_to c.title, category_path(category: c.title.downcase) %>
       <% end %>
-    </td>
-  </tr>
+      
+    </div>
+  </div>
 <% end %>
