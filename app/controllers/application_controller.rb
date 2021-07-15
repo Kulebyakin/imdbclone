@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  MOVIES_PER_PAGE = 3
+
   protected
 
   def configure_permitted_parameters

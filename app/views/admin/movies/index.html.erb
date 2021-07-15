@@ -22,7 +22,7 @@
         <td><%= movie.description %></td>
         <td>
           <% movie.category.each do |c| %>
-            <%= link_to c.title, category_path(category: c.title.downcase) %>
+            <%= link_to c.title, category_path(category: c.title.downcase) %><br>
           <% end %>
         </td>
           <td><%= link_to 'Edit', edit_admin_movie_path(movie) %></td>

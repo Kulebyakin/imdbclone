@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'users', to: 'users#index', as: :users
   end
 
-  match 'movies/:id/rate/:rating', to: 'movies#rate', via: [:get, :post], as: :rating
+  match 'movies/:id/rate/:rating', to: 'ratings#index', via: [:get, :post], as: :rating
   get 'category/:category', to: 'movies#category', as: :category
   root to: "movies#index"
 
