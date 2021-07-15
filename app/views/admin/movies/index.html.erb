@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th>Title</th>
+      <th>Average rating</th>
       <th>Description</th>
       <th>Genres</th>
       <th colspan="2"></th>
@@ -17,6 +18,7 @@
     <% @movies.each do |movie| %>
       <tr>
         <td><%= link_to movie.title, admin_movie_path(movie) %></td>
+        <td><%= movie.ratings.average(:rating).round(2) %></td>
         <td><%= movie.description %></td>
         <td>
           <% movie.category.each do |c| %>
