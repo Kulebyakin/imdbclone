@@ -21,7 +21,7 @@
           <% end %>
         </td>
           <td><%= link_to 'Edit', edit_admin_movie_path(movie) %></td>
-          <td><%= link_to 'Destroy', admin_movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', admin_movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger" %></td>
       </tr>
     <% end %>
     
