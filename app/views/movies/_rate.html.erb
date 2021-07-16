@@ -8,16 +8,23 @@
         </div>
         <div class="ml-auto">
           <% if current_user %>
-            <% (1..10).each do |n| %>
-              <%= link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true %>
-            <% end %>
-            <br>
             <% if current_user.ratings.where(movie: movie).present? %>
-              Your rate:
-              <strong>
-                <%= movie.ratings.where(user: current_user).pluck(:rating)[0] %>
-              </strong>
+              
+              <% mr = movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+              
+              <% (1..10).each do |n| %>
+                <% if n == mr %>
+                  <%= link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true, class: "fw-bold" %>
+                <% else %>
+                  <%= link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% (1..10).each do |n| %>
+                <%= link_to n, rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true %>
+              <% end %>
             <% end %>
+            
             
             
           <% end %>
