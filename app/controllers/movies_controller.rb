@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
     @page = (params[:page] || 1).to_i
     @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
     
-    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 0
+    redirect_to movies_path, alert: "Wrong page number!" if @page > @number_of_pages || @page < 1
     @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
   end
 
@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     @cat = params[:category].capitalize
     @number_of_pages = (Movie.joins(:category).where("categories.title = ?", @cat).count / MOVIES_PER_PAGE.to_f).ceil
 
-    if @page >= @number_of_pages && @page < 0
+    if @page >= @number_of_pages && @page < 1
       redirect_to movies_path, alert: "Wrong page number!"
     else
       @movies = Movie.joins(:category).where("categories.title = ?", @cat).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
