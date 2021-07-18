@@ -1,10 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::Categories", type: :request do
+  current_user = User.first_or_create!(username: 'usr', email: 'usr@test.com', password: '123qwe', password_confirmation: '123qwe', admin: true)
+  
+
+  let(:valid_attributes) do 
+    {
+      :title => 'Comedy'
+    }
+  end
+
+  let(:invalid_attributes) do 
+    {
+      :title => ''
+    }
+  end
+
   describe "GET /index" do
     it "returns http success" do
-      get "/admin/categories/index"
-      expect(response).to have_http_status(:success)
+      category = Category.new(valid_attributes)
+      category.save
+      get admin_categories_url
+      expect(response).to be_successful
     end
   end
 
@@ -24,8 +41,10 @@ RSpec.describe "Admin::Categories", type: :request do
 
   describe "GET /edit" do
     it "returns http success" do
-      get "/admin/categories/edit"
-      expect(response).to have_http_status(:success)
+      category = Category.new(valid_attributes)
+      category.save
+      get edit_admin_category_url(category)
+      expect(response).to be_successful
     end
   end
 

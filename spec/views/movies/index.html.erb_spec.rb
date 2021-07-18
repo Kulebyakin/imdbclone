@@ -22,8 +22,8 @@ RSpec.describe "movies/index", type: :view do
 
   it "renders a list of movies" do
     render
-    assert_select 'tr>td', text: 'A valid title', count: 2
-    assert_select 'tr>td', text: 'A valid description', count: 2
-    assert_select 'tr>td', text: category.title, count: 2
+    assert_select 'h3', text: 'A valid title', count: 2
+    assert_select 'p.fs-5', text: 'A valid description', count: 2
+    assert_select 'a', text: category.title, count: 2
   end
 end

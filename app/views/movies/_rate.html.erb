@@ -30,7 +30,7 @@
       </div>
       
       <p class="fs-5"><%= movie.description %></p>
-
+      
       <% movie.category.each do |c| %>
         <%= link_to c.title, category_path(category: c.title.downcase) %>
       <% end %>
