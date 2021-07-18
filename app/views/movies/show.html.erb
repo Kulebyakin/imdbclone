@@ -6,21 +6,25 @@
         <h3 class="display-7"><%= @movie.title %></h3>
       </div>
       <div class="ml-auto">
-        
-        <% if current_user %>
-          <% (1..10).each do |n| %>
-            <%= link_to n, rating_path(id: @movie, rating: n) %>
+          <% if current_user %>
+            <% if current_user.ratings.where(movie: @movie).present? %>
+              <% current_rating = @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+              
+              <% (1..10).each do |n| %>
+                <% if n == current_rating %>
+                  <%= link_to n, rating_path(id: @movie, rating: n, category: params[:category], page: params[:page]), method: :post, class: "fw-bold" %>
+                <% else %>
+                  <%= link_to n, rating_path(id: @movie, rating: n, category: params[:category], page: params[:page]), method: :post %>
+                <% end %>
+              <% end %>
+
+            <% else %>
+              <% (1..10).each do |n| %>
+                <%= link_to n, rating_path(id: @movie, rating: n, category: params[:category], page: params[:page]), method: :post %>
+              <% end %>
+            <% end %>
+            
           <% end %>
-          <br>
-          <% if current_user.ratings.where(movie: @movie).present? %>
-            Your rate:
-            <strong>
-              <%= @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
-            </strong>
-          <% end %>
-          
-          
-        <% end %>
       </div>
     </div>
     
