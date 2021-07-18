@@ -25,16 +25,16 @@ class RatingsController < ApplicationController
         users_rate = Movie.find(params[:id]).ratings.where(user: current_user)
         if users_rate.present?
           if users_rate.pluck(:rating)[0] == rating
-            ratings = users_rate.destroy(users_rate.pluck(:id)[0])
+            change_rating = users_rate.destroy(users_rate.pluck(:id)[0])
           else
-            ratings = users_rate.update(rating: rating)
+            change_rating = users_rate.update(rating: rating)
           end
         else
-          ratings = users_rate.build(rating: rating).save
+          change_rating = users_rate.build(rating: rating).save
         end
 
         respond_to do |format|
-          if ratings
+          if change_rating
             format.js { render "movies/rate.js.erb" }
             format.html { redirect_to movie_path, notice: "Your rate was successfully accepted." }
           else
