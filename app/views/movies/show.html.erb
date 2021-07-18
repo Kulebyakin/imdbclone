@@ -7,11 +7,10 @@
       </div>
       <div class="ml-auto">
           <% if current_user %>
-            <% if current_user.ratings.where(movie: @movie).present? %>
-              <% current_rating = @movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+            <% if @current_users_rating %>
               
               <% (1..10).each do |n| %>
-                <% if n == current_rating %>
+                <% if n == @current_users_rating %>
                   <%= link_to n, rating_path(id: @movie, rating: n, category: params[:category], page: params[:page]), method: :post, class: "fw-bold" %>
                 <% else %>
                   <%= link_to n, rating_path(id: @movie, rating: n, category: params[:category], page: params[:page]), method: :post %>
