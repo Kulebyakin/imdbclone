@@ -30,6 +30,11 @@ class MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
     @current_users_rating ||= @movie.ratings.where(user: current_user).pluck(:rating)[0]
+    
+    if @movie.ratings.any?
+      @average_rating = @movie.ratings.average(:rating).round(2) 
+      @ratings_count = @movie.ratings.count(:rating)
+    end
   end
 
   private

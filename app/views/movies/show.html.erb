@@ -32,7 +32,7 @@
     </p>
     <div class="my-3">
       <strong>Average rating:</strong>
-      <%= @movie.ratings.average(:rating).round(2) %> (number of ratings: <%= @movie.ratings.count(:rating) %>)
+      <%= @average_rating %> (number of ratings: <%= @ratings_count %>)
     </div>
     
     <% @movie.category.each do |c| %>
