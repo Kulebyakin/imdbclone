@@ -14,7 +14,7 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <td><%= user.ratings.average(:rating).round(2) %></td>
+        <td><%= user.ratings.average(:rating).round(2) if user.ratings.any? %></td>
       </tr>
     <% end %>
   </tbody>
