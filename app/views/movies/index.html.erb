@@ -16,8 +16,8 @@
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-  <% if @page.present? %>
-    <% if @cat.present? %>
+  <% if @page %>
+    <% if @cat %>
       <li class="page-item"><%= link_to "First page", category_path, class: "page-link" if @page != 1 %></li>
       <li class="page-item"><%= link_to "Previous page", category_path(page: @page - 1), class: "page-link" if @page > 1 %></li>
       <li class="page-item"><%= link_to "Next page", category_path(page: @page + 1), class: "page-link" if @page < @number_of_pages %></li>
