@@ -2,30 +2,33 @@
   <div class="p-5 mb-4 bg-light rounded-3 border">
     <div class="container-fluid py-1">
 
-      <div class="d-flex">
-        <div class="me-auto">
-          <h3 class="display-7"><%= link_to movie.title, movie, style: "text-decoration: none; color: black" %></h3>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <h3 class="display-7 mb-1"><%= link_to movie.title, movie, style: "text-decoration: none; color: black" %></h3>
         </div>
-        <div class="ml-auto">
-          <% if current_user %>
-            <% if current_user.ratings.where(movie: movie).present? %>
-              <% current_rating = movie.ratings.where(user: current_user).pluck(:rating)[0] %>
-              
-              <% (1..10).each do |n| %>
-                <% if n <= current_rating %>
-                  <%= link_to(image_tag("/star-fill.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>                
-                <% else %>
-                  <%= link_to(image_tag("/star.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>   
+        <div class="col-xs-12 col-md-6 text-md-end text-xs-start">
+          <div class="d-inline-flex mb-2">
+            <% if current_user %>
+              <% if current_user.ratings.where(movie: movie).present? %>
+                <% current_rating = movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+                
+                <% (1..10).each do |n| %>
+                  <% if n <= current_rating %>
+                    <%= link_to(image_tag("/star-fill.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>                
+                  <% else %>
+                    <%= link_to(image_tag("/star.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>   
+                  <% end %>
+                <% end %>
+
+              <% else %>
+                <% (1..10).each do |n| %>
+                  <%= link_to(image_tag("/star.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>
                 <% end %>
               <% end %>
-
-            <% else %>
-              <% (1..10).each do |n| %>
-                <%= link_to(image_tag("/star.svg", width: "20", class: "m-0"), rating_path(id: movie, rating: n, category: params[:category], page: params[:page]), method: :post, remote: true) %>
-              <% end %>
+              
             <% end %>
-            
-          <% end %>
+          </div>
+          
         </div>
       </div>
       
