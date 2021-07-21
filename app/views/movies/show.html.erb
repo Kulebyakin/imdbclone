@@ -6,7 +6,7 @@
         <h3 class="display-7"><%= @movie.title %></h3>
       </div>
       <div class="ml-auto">
-          <% if current_user %>
+          <% if user_signed_in? %>
             <% if @current_users_rating %>
               
               <% (1..10).each do |n| %>

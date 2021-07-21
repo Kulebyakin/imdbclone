@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "admin/movies/edit.html.erb", type: :view do
-  admin = User.first_or_create!(username: 'usr', email: 'usr@test.com', password: '123qwe', password_confirmation: '123qwe', admin: true)
+  user = FactoryBot.build(:user, username: 'qwe', email: 'qwe@test.com')
   category = Category.first_or_create!(title: 'Comedy')
 
   before(:each) do
-    allow(view).to receive(:current_user).and_return(admin)
     @movie = assign(:movie, Movie.create!(
       title: 'A valid title',
       description: 'A valid description',
