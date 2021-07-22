@@ -8,8 +8,8 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.title %></td>
-        <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
-        <td><%= link_to 'Destroy', admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger" %></td>
+        <td><%= link_to(image_tag("/pencil.svg", width: "20", class: "m-0"), edit_admin_category_path(category)) %></td>
+        <td><%= link_to(image_tag("/trash.svg", width: "20", class: "m-0"), admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger") %></td>
       </tr>
     <% end %>
 

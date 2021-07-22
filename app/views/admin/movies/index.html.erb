@@ -25,8 +25,8 @@
             <%= link_to c.title, category_path(category: c.title.downcase) %><br>
           <% end %>
         </td>
-          <td><%= link_to 'Edit', edit_admin_movie_path(movie) %></td>
-          <td><%= link_to 'Destroy', admin_movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger" %></td>
+          <td><%= link_to(image_tag("/pencil.svg", width: "20", class: "m-0"), edit_admin_movie_path(movie)) %></td>
+          <td><%= link_to(image_tag("/trash.svg", width: "20", class: "m-0"), admin_movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger") %></td>
       </tr>
     <% end %>
     
