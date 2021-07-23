@@ -7,16 +7,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
 
-        <% if @category %>
-          <% @category.each do |cat| %>
-            <%= 
-              link_to_if @cat && @cat == cat.title, cat.title, category_path(category: cat.title.downcase), class: "nav-link active" do
-                link_to cat.title, category_path(category: cat.title.downcase), class: "nav-link"
-              end
-            %>
-          <% end %>
-        <% end %>
-        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Genres
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% if @category %>
+              <% @category.each do |cat| %>
+                <%= 
+                  link_to_if @cat && @cat == cat.title, cat.title, category_path(category: cat.title.downcase), class: "dropdown-item active" do
+                    link_to cat.title, category_path(category: cat.title.downcase), class: "dropdown-item"
+                  end
+                %>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
       </ul>
       <hr>
       <ul class="navbar-nav ml-auto">
