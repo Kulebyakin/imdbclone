@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
   def category
     @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize
-    category_movies = Movie.joins(:category).where("categories.title = ?", @cat)
+    category_movies = Movie.joins(:category).where("categories.title = ?", @cat).order(title: :asc)
     @number_of_pages = (category_movies.count / MOVIES_PER_PAGE.to_f).ceil
 
     if @page > @number_of_pages || @page < 1
