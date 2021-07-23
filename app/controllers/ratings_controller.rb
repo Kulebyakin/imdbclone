@@ -6,12 +6,12 @@ class RatingsController < ApplicationController
     @page = (params[:page] || 1).to_i
 
     if params[:category].nil?
-      @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
+      @number_of_pages = (Movie.all.size / MOVIES_PER_PAGE.to_f).ceil
       @movies = Movie.paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
     else
       @cat = params[:category].capitalize 
       category_movies = Movie.joins(:category).where("categories.title = ?", @cat)
-      @number_of_pages = (category_movies.count / MOVIES_PER_PAGE.to_f).ceil
+      @number_of_pages = (category_movies.size / MOVIES_PER_PAGE.to_f).ceil
       @movies = category_movies.paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
     end
 
@@ -24,8 +24,8 @@ class RatingsController < ApplicationController
 
         users_rate = Movie.find(params[:id]).ratings.where(user: current_user)
         if users_rate.present?
-          if users_rate.pluck(:rating)[0] == rating
-            change_rating = users_rate.destroy(users_rate.pluck(:id)[0])
+          if users_rate.pick(:rating) == rating
+            change_rating = users_rate.destroy(users_rate.pick(:id))
           else
             change_rating = users_rate.update(rating: rating)
           end

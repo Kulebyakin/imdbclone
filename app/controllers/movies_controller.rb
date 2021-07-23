@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @page = (params[:page] || 1).to_i
-    @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
+    @number_of_pages = (Movie.all.size / MOVIES_PER_PAGE.to_f).ceil
     
     if @page > @number_of_pages || @page < 1
       redirect_to movies_path, alert: "Wrong page number!" 
@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
     @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize
     category_movies = Movie.joins(:category).where("categories.title = ?", @cat)
-    @number_of_pages = (category_movies.count / MOVIES_PER_PAGE.to_f).ceil
+    @number_of_pages = (category_movies.size / MOVIES_PER_PAGE.to_f).ceil
 
     if @page > @number_of_pages || @page < 1
       redirect_to movies_path, alert: "Wrong page number!"
@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
   # GET /movies/1 or /movies/1.json
   def show
     @movie = Movie.find(params[:id])
-    @current_users_rating ||= @movie.ratings.where(user: current_user).pluck(:rating)[0]
+    @current_users_rating ||= @movie.ratings.where(user: current_user).pick(:rating)
     
     if @movie.ratings.any?
       @average_rating = @movie.ratings.average(:rating).round(2) 

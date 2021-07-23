@@ -10,7 +10,7 @@
           <div class="d-inline-flex mb-2">
             <% if current_user %>
               <% if current_user.ratings.where(movie: movie).present? %>
-                <% current_rating = movie.ratings.where(user: current_user).pluck(:rating)[0] %>
+                <% current_rating = movie.ratings.where(user: current_user).pick(:rating) %>
                 
                 <% (1..10).each do |n| %>
                   <% if n <= current_rating %>
