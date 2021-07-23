@@ -7,6 +7,8 @@ class Movie < ApplicationRecord
   validates :title, presence: true
   validates :category, presence: true
 
+  default_scope { order(title: :asc) }
+
   scope :paginate, -> (page:, per_page:) {
     page = (page || 1).to_i
 

@@ -7,7 +7,7 @@ class RatingsController < ApplicationController
 
     if params[:category].nil?
       @number_of_pages = (Movie.count / MOVIES_PER_PAGE.to_f).ceil
-      @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
+      @movies = Movie.paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
     else
       @cat = params[:category].capitalize 
       category_movies = Movie.joins(:category).where("categories.title = ?", @cat)

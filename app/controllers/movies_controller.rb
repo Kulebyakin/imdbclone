@@ -8,14 +8,14 @@ class MoviesController < ApplicationController
     if @page > @number_of_pages || @page < 1
       redirect_to movies_path, alert: "Wrong page number!" 
     else
-      @movies = Movie.order(title: :asc).paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
+      @movies = Movie.paginate(page: params[:page], per_page: MOVIES_PER_PAGE)
     end
   end
 
   def category
     @page = (params[:page] || 1).to_i
     @cat = params[:category].capitalize
-    category_movies = Movie.joins(:category).where("categories.title = ?", @cat).order(title: :asc)
+    category_movies = Movie.joins(:category).where("categories.title = ?", @cat)
     @number_of_pages = (category_movies.count / MOVIES_PER_PAGE.to_f).ceil
 
     if @page > @number_of_pages || @page < 1
