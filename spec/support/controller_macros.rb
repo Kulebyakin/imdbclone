@@ -2,7 +2,8 @@ module ControllerMacros
   def login_admin
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:admin]
-      sign_in FactoryBot.create(:admin) # Using factory bot as an example
+      admin = FactoryBot.create(:admin_user)
+      sign_in admin, scope: :user # sign_in(scope, resource)
     end
   end
 
