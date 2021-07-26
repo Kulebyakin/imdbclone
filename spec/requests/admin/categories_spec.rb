@@ -18,8 +18,7 @@ RSpec.describe "Admin::Categories", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
-      category = Category.new(valid_attributes)
-      category.save
+      category = Category.create! valid_attributes
       get "/admin/categories"
       expect(response).to have_http_status(:success)
     end
@@ -27,6 +26,7 @@ RSpec.describe "Admin::Categories", type: :request do
 
   describe "GET /new" do
     it "returns http success" do
+      category = Category.create! valid_attributes
       get "/admin/categories/new"
       expect(response).to have_http_status(:success)
     end
@@ -41,8 +41,7 @@ RSpec.describe "Admin::Categories", type: :request do
 
   describe "GET /edit" do
     it "returns http success" do
-      category = Category.new(valid_attributes)
-      category.save
+      category = Category.create! valid_attributes
       get edit_admin_category_url(category)
       expect(response).to have_http_status(:success)
     end

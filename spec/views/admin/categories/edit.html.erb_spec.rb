@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "admin/categories/edit.html.erb", type: :view do
-  login_admin
+  user = FactoryBot.build(:user, username: 'qwe', email: 'qwe@test.com')
 
   before(:each) do
-    @category = assign(:category, [
-              Category.create!(
-                title: 'Comedy'
-              )
-            ])
+    @category = assign(:category, Category.create!(
+          title: 'Comedy'))
   end
 
   it "renders the edit category form" do
