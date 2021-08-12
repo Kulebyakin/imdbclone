@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Movie, type: :model do
-  current_user = User.first_or_create!(username: 'usr', email: 'usr@test.com', password: '123qwe', password_confirmation: '123qwe')
+  # current_user = User.first_or_create!(username: 'usr', email: 'usr@test.com', password: '123qwe', password_confirmation: '123qwe')
   category = Category.first_or_create!(title: 'Comedy')
 
   it 'Has a title' do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "admin/categories/edit.html.erb", type: :view do
-  user = FactoryBot.build(:user, username: 'qwe', email: 'qwe@test.com')
+  # user = FactoryBot.build(:user, username: 'qwe', email: 'qwe@test.com')
 
   before(:each) do
     @category = assign(:category, Category.create!(

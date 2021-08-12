@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "admin/users/index.html.erb", type: :view do
-  users = FactoryBot.build(:user, username: 'user', email: 'user@test.com')
+  # users = FactoryBot.build(:user, username: 'user', email: 'user@test.com')
 
   before(:each) do
     assign(:users, [

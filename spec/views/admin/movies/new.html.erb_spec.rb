@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "admin/movies/new.html.erb", type: :view do
-  admin = FactoryBot.build(:admin_user, username: 'usr', email: 'usr@test.com')
+  # admin = FactoryBot.build(:admin_user, username: 'usr', email: 'usr@test.com')
   category = Category.first_or_create!(title: 'Comedy')
 
   before(:each) do
