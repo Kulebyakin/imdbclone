@@ -47,4 +47,31 @@ Movie.create title: 'Pretty Woman', category: [romance, comedy], description: 'A
 Movie.create title: 'Soul', category: [animation, comedy, fantasy], description: 'Joe is a middle-school band teacher whose life hasn\'t quite gone the way he expected. His true passion is jazz -- and he\'s good. But when he travels to another realm to help someone find their passion, he soon discovers what it means to have soul.'
 Movie.create title: 'Toy Story', category: [animation, adventure, comedy, fantasy], description: 'A little boy named Andy loves to be in his room, playing with his toys, especially his doll named "Woody". But, what do the toys do when Andy is not with them, they come to life. Woody believes that his life (as a toy) is good. However, he must worry about Andy\'s family moving, and what Woody does not know is about Andy\'s birthday party. Woody does not realize that Andy\'s mother gave him an action figure known as Buzz Lightyear, who does not believe that he is a toy, and quickly becomes Andy\'s new favorite toy. Woody, who is now consumed with jealousy, tries to get rid of Buzz. Then, both Woody and Buzz are now lost. They must find a way to get back to Andy before he moves without them, but they will have to pass through a ruthless toy killer, Sid Phillips.'
 Movie.create title: 'Cars', category: [animation, comedy], description: 'While traveling to California for the dispute of the final race of the Piston Cup against The King and Chick Hicks, the famous Lightning McQueen accidentally damages the road of the small town Radiator Springs and is sentenced to repair it. Lightning McQueen has to work hard and finds friendship and love in the simple locals, changing its values during his stay in the small town and becoming a true winner.'
-# Movie.create title: '', category: [], description: ''
+
+categories = [
+  adventure, 
+  drama, 
+  comedy,
+  cyberpunk,
+  musical,
+  romance,
+  crime,
+  action,
+  thriller,
+  horror,
+  animation,
+  cartoon,
+  disaster,
+  fantasy,
+  western,
+  art_house
+]
+
+
+(1..50).each do |id|
+  Movie.create(
+    title: Faker::Movie.unique.title, 
+    category: categories.sample(rand(1..3)),
+    description: Faker::Hipster.paragraph(sentence_count: 4, supplemental: true, random_sentences_to_add: 4)
+  )
+end
